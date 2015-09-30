@@ -24,7 +24,7 @@
 						<li class="active"><a href="/ServiceStation/clients">Clients</a></li>
 						<li><a href="#">Orders</a></li>
 					</ul>
-					<form:form method="get" action="find"
+					<form:form method="get" action="/ServiceStation/clients"
 						class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input type="text" name="firstName" class="form-control"
@@ -86,15 +86,17 @@
 							<td>${order.date}</td>
 							<td>${order.orderAmount}</td>
 							<td>${order.orderStatus}</td>
-							<td><spring:url value="/orders/${order.serviceOrderId}/delete"
-									var="deleteUrl" /> <spring:url
-									value="/orders/${order.serviceOrderId}/update" var="updateUrl" />
+							<td><td><form action="/ServiceStation/orsers/${order.serviceOrderId}/update"
+									method="post">
+									<input type="submit" class="btn btn-primary btn-primary"
+										value="Edit" />
+								</form></td>
+							<td><form action="/ServiceStation/orders/${order.serviceOrderId}"
+									method="get">
+									<input type="hidden" name="_method" value="delete"> <input
+										type="submit" class="btn btn-danger btn-mini" value="Delete" />
+								</form></td>
 
-								<button class="btn btn-primary"
-									onclick="location.href='${updateUrl}'">Edit</button>
-								<button class="btn btn-danger"
-									onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
-							</td>
 						</tr>
 					</c:forEach>
 

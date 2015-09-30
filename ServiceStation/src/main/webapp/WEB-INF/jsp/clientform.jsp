@@ -19,11 +19,11 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="clients">Clients<span
+						<li class="active"><a href="/ServiceStation/clients">Clients<span
 								class="sr-only">(current)</span></a></li>
 						<li><a href="#">Orders</a></li>
 					</ul>
-					<form:form method="post" commandName="find"
+					<form:form method="get" action="/ServiceStation/clients"
 						class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input type="text" name="firstName" class="form-control"

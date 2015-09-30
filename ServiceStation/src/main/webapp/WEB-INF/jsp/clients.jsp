@@ -23,7 +23,7 @@
 								class="sr-only">(current)</span></a></li>
 						<li><a href="#">Orders</a></li>
 					</ul>
-					<form:form method="get" commandName="find"
+					<form:form method="get" action="clients"
 						class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input type="text" name="firstName" class="form-control"
@@ -42,6 +42,7 @@
 
 	<div class="container">
 	<h2>Clients</h2>
+	
 		<spring:url value="/clients/add" var="urlNewClient" />
 		<button class="btn btn-primary" onclick="location.href='${urlNewClient}'">New
 			client</button>

@@ -13,23 +13,22 @@ import com.servicestation.repository.CarRepository;
 import com.servicestation.repository.ClientRepository;
 import com.servicestation.repository.MakeRepository;
 import com.servicestation.repository.ModelRepository;
+import com.servicestation.repository.ServiceOrderRepository;
 import com.servicestation.repository.YearRepository;
 
 @Controller
 @RequestMapping("/cars")
 public class CarController {
 	@Autowired
+	private ServiceOrderRepository orderRepository;
+	@Autowired
 	private ClientRepository clientRepository;
-
 	@Autowired
 	private CarRepository carRepository;
-
 	@Autowired
 	private MakeRepository makeRepository;
-
 	@Autowired
 	private ModelRepository modelRepository;
-
 	@Autowired
 	private YearRepository yearRepository;
 
@@ -51,12 +50,15 @@ public class CarController {
 		model.addAttribute("models", modelRepository.findAll());
 		return "carform";
 	}
-	@RequestMapping(value = "${car.carId}/delete", method = RequestMethod.POST)
+
+	@RequestMapping(value = "{carId}", params = "_method=delete")
 	public String deleteCar(@PathVariable("carId") Long carId, Model model) {
 		Car car = carRepository.findOne(carId);
 		Long clientId = car.getClientId().getClientId();
-		carRepository.delete(carId);
+		if (orderRepository.findByCarId(car).isEmpty()) {
+			carRepository.delete(carId);
+		} // else 		model.addAttribute("message", " Deletion is not possible. There are orders related to this car.");
 		model.addAttribute("clientId", clientId);
-		return "redirect:cars";
+		return "redirect:/cars/{clientId}";
 	}
 }

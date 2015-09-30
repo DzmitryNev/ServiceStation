@@ -49,4 +49,13 @@ public class OrderController {
 		return "orders";
 	}
 
+	@RequestMapping(value = "{serviceOrderId}", params = "_method=delete")
+	public String deleteOrder(@PathVariable("serviceOrderId") Long serviceOrderId, Model model) {
+		ServiceOrder order = orderRepository.findOne(serviceOrderId);
+		Long carId = order.getCarId().getCarId();
+		orderRepository.delete(serviceOrderId);
+		model.addAttribute("carId", carId);
+		return "redirect:/orders/{carId}";
+		
+	}
 }

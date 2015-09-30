@@ -8,19 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.servicestation.model.Car;
 import com.servicestation.model.Client;
 import com.servicestation.repository.CarRepository;
 import com.servicestation.repository.ClientRepository;
-import com.servicestation.repository.MakeRepository;
-import com.servicestation.repository.ModelRepository;
-import com.servicestation.repository.YearRepository;
 
 @Controller
 @RequestMapping("/")
@@ -59,4 +55,12 @@ public class ServiceStationController {
 		return "clients";
 	}
 
+	@RequestMapping(value = "clients", params = { "firstName", "lastName" }, method = RequestMethod.GET)
+	public String showClients(@RequestParam String firstName, @RequestParam String lastName, Model model) {
+		if (!firstName.isEmpty() && !lastName.isEmpty())
+			model.addAttribute("clients", clientRepository.findByFirstNameAndLastName(firstName, lastName));
+		else
+			model.addAttribute("clients", clientRepository.findAll());
+		return "clients";
+	}
 }
