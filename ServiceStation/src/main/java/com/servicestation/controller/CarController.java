@@ -8,57 +8,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.servicestation.model.Car;
-import com.servicestation.model.Client;
-import com.servicestation.repository.CarRepository;
-import com.servicestation.repository.ClientRepository;
-import com.servicestation.repository.MakeRepository;
-import com.servicestation.repository.ModelRepository;
-import com.servicestation.repository.ServiceOrderRepository;
-import com.servicestation.repository.YearRepository;
+import com.servicestation.service.CarService;
 
 @Controller
 @RequestMapping("/cars")
 public class CarController {
 	@Autowired
-	private ServiceOrderRepository orderRepository;
-	@Autowired
-	private ClientRepository clientRepository;
-	@Autowired
-	private CarRepository carRepository;
-	@Autowired
-	private MakeRepository makeRepository;
-	@Autowired
-	private ModelRepository modelRepository;
-	@Autowired
-	private YearRepository yearRepository;
+	private CarService carService;
 
 	@RequestMapping(value = "{clientId}", method = RequestMethod.GET)
 	public String showCars(@PathVariable("clientId") Long clientId, Model model) {
-		Client client = clientRepository.findOne(clientId);
-		model.addAttribute("client", client);
-		model.addAttribute("cars", carRepository.findByClientId(client));
+		model.addAttribute("client", carService.getClient(clientId));
+		model.addAttribute("cars", carService.findByClientId(clientId));
 		return "cars";
 	}
 
 	@RequestMapping(value = "{clientId}/add", method = RequestMethod.GET)
 	public String constructCar(@PathVariable("clientId") Long clientId, Model model) {
+		// carService.save();
 		Car car = new Car();
 		model.addAttribute("car", car);
-		model.addAttribute("client", clientRepository.findOne(clientId));
-		model.addAttribute("years", yearRepository.findAll());
-		model.addAttribute("makes", makeRepository.findAll());
-		model.addAttribute("models", modelRepository.findAll());
+		model.addAttribute("client", carService.getClient(clientId));
+		model.addAttribute("years", carService.findAllYears());
+		model.addAttribute("makes", carService.findAllMakes());
+		model.addAttribute("models", carService.findAllModels());
 		return "carform";
 	}
 
-	@RequestMapping(value = "{carId}", params = "_method=delete")
-	public String deleteCar(@PathVariable("carId") Long carId, Model model) {
-		Car car = carRepository.findOne(carId);
-		Long clientId = car.getClientId().getClientId();
-		if (orderRepository.findByCarId(car).isEmpty()) {
-			carRepository.delete(carId);
-		} // else 		model.addAttribute("message", " Deletion is not possible. There are orders related to this car.");
+	@RequestMapping(value = "{clientId}/{carId}", params = "_method=delete")
+	public String deleteCar(@PathVariable("clientId") Long clientId, @PathVariable("carId") Long carId, Model model) {
+		carService.delete(carId);
 		model.addAttribute("clientId", clientId);
 		return "redirect:/cars/{clientId}";
 	}
+
 }

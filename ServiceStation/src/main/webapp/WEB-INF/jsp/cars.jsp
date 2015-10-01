@@ -69,7 +69,7 @@
 		<h3>Cars</h3>
 		<div>
 			<spring:url value="/cars/${client.clientId}/add" var="urlNewCar" />
-			<button class="btn btn-info" onclick="location.href='${urlNewCar}'">New
+			<button class="btn btn-primary" onclick="location.href='${urlNewCar}'">New
 				car</button>
 			<c:if test="${!empty message}">
 				<div class="alert alert-dismissible alert-warning">
@@ -112,7 +112,7 @@
 									<input type="submit" class="btn btn-primary btn-primary"
 										value="Edit" />
 								</form></td>
-							<td><form action="/ServiceStation/cars/${car.carId}"
+							<td><form action="/ServiceStation/cars/${client.clientId}/${car.carId}"
 									method="get">
 									<input type="hidden" name="_method" value="delete"> <input
 										type="submit" class="btn btn-danger btn-mini" value="Delete" />

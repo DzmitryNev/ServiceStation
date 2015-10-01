@@ -65,7 +65,7 @@
 		<h3>Orders</h3>
 		<div>
 			<spring:url value="/orders/${car.carId}/add" var="urlNewOrder" />
-			<button class="btn btn-info" onclick="location.href='${urlNewOrder}'">New
+			<button class="btn btn-primary" onclick="location.href='${urlNewOrder}'">New
 				order</button>
 		</div>
 
@@ -91,7 +91,7 @@
 									<input type="submit" class="btn btn-primary btn-primary"
 										value="Edit" />
 								</form></td>
-							<td><form action="/ServiceStation/orders/${order.serviceOrderId}"
+							<td><form action="/ServiceStation/orders/${car.carId}/${order.serviceOrderId}"
 									method="get">
 									<input type="hidden" name="_method" value="delete"> <input
 										type="submit" class="btn btn-danger btn-mini" value="Delete" />

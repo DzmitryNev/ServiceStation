@@ -5,27 +5,21 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.servicestation.model.Client;
-import com.servicestation.repository.CarRepository;
-import com.servicestation.repository.ClientRepository;
+import com.servicestation.service.ClientService;
 
 @Controller
 @RequestMapping("/")
 public class ServiceStationController {
-	@Autowired
-	private ClientRepository clientRepository;
 
 	@Autowired
-	private CarRepository carRepository;
+	private ClientService clientService;
 
 	@RequestMapping(value = "clients/add", method = RequestMethod.GET)
 	public String constructClient(Model model) {
@@ -38,29 +32,23 @@ public class ServiceStationController {
 		if (result.hasErrors())
 			return "clientform";
 		else {
-			clientRepository.save(client);
+			clientService.save(client);
 		}
 		return "redirect:/clients";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getClients(ModelMap model) {
-		model.addAttribute("clients", clientRepository.findAll());
-		return "clients";
-	}
-
-	@RequestMapping(value = "clients", method = RequestMethod.GET)
-	public String showClients(Model model) {
-		model.addAttribute("clients", clientRepository.findAll());
+	@RequestMapping(value = {"/","clients"}, method = RequestMethod.GET)
+	public String getClients(Model model) {
+		model.addAttribute("clients", clientService.findAll());
 		return "clients";
 	}
 
 	@RequestMapping(value = "clients", params = { "firstName", "lastName" }, method = RequestMethod.GET)
 	public String showClients(@RequestParam String firstName, @RequestParam String lastName, Model model) {
 		if (!firstName.isEmpty() && !lastName.isEmpty())
-			model.addAttribute("clients", clientRepository.findByFirstNameAndLastName(firstName, lastName));
+			model.addAttribute("clients", clientService.findClient(firstName, lastName));
 		else
-			model.addAttribute("clients", clientRepository.findAll());
+			model.addAttribute("clients", clientService.findAll());
 		return "clients";
 	}
 }

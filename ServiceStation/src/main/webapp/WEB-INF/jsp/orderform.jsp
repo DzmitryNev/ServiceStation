@@ -41,45 +41,32 @@
 	</div>
 
 	<div class="container">
-		<spring:url value="/orders/${carId}" var="urlOrders" />
-		<form:form class="form-horizontal" method="post"
-			modelAttribute="order" action="${urlOrder}">
-		 	
-				<%-- <div class="form-group">
-					<form:label path="carId.carId">Car:</form:label>
-					<form:label path="carId.carId">${car.carId}</form:label>
-					<input name="carId" type="hidden" value="${car.carId}">
-				</div>
-			 --%>
-			<spring:bind path="date">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<form:label path="date">Date:</form:label>
-					<form:input path="date" class="form-control"
-						placeholder="yyyy-mm-dd" />
-					<form:errors path="date" cssclass="error"></form:errors>
-				</div>
-			</spring:bind>
-			<spring:bind path="orderAmount">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<form:label path="orderAmount">Order Amount:</form:label>
-					<form:input path="orderAmount" class="form-control"
-						placeholder="Order Amount" />
-					<form:errors path="orderAmount" cssclass="error"></form:errors>
-				</div>
-			</spring:bind>
-			<spring:bind path="orderStatus">
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<label for="sel1">Order Status:</label>
-					<form:select class="form-control" id="sel1" path="orderStatus">
-						<form:option value="In Progress">In Progress</form:option>
-						<form:option value="Completed">Completed</form:option>
-						<form:option value="Canceled">Canceled</form:option>
-					</form:select>
-				</div>
-			</spring:bind>
+		<form class="form-horizontal" method="post"
+			action="/ServiceStation/orders/${car.carId}">
+
+			<div class="form-group">
+				<label>Car:</label> <label>${car.modelYearId.yearId.year}</label> <label>${car.modelYearId.modelId.makeId.make}</label>
+				<label>${car.modelYearId.modelId.model}</label>
+			</div>
+			<div class="form-group">
+				<label>Date:</label> <input name="date" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label>Order Amount:</label> <input name="orderAmount"
+					class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="sel1">Order Status:</label> <select class="form-control"
+					id="sel1" name="orderStatus">
+					<option value="In Progress">In Progress</option>
+					<option value="Completed">Completed</option>
+					<option value="Canceled">Canceled</option>
+				</select>
+			</div>
 			<button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			<button type="submit" class="btn btn-primary">Save</button>
-		</form:form>
+		</form>
+
 	</div>
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script
