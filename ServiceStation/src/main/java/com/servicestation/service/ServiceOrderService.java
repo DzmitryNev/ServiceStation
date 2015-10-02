@@ -27,7 +27,6 @@ public class ServiceOrderService {
 	public Car getCar(Long carId) {
 		return carRepository.findOne(carId);
 	}
-	
 
 	public void save(Long carId, Date date, BigDecimal orderAmount, String orderStatus) {
 		ServiceOrder order = new ServiceOrder();
@@ -40,6 +39,10 @@ public class ServiceOrderService {
 
 	public void delete(Long serviceOrderId) {
 		orderRepository.delete(serviceOrderId);
+	}
+
+	public List<ServiceOrder> findAll() {
+		return orderRepository.findAllByOrderByDateDesc();
 	}
 
 }

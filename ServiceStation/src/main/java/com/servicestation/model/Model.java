@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Model {
+public class Model implements Serializable{
 	
 	@Id
 	
@@ -24,7 +25,7 @@ public class Model {
 	private String model;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelId")
-	private Collection<ModelYear> modelYearCollection;
+	private List<ModelYear> modelYearList;
 
 	@JoinColumn(name = "make_id", referencedColumnName = "make_id")
 	@ManyToOne
@@ -58,12 +59,12 @@ public class Model {
 		this.model = model;
 	}
 
-	public Collection<ModelYear> getModelYearCollection() {
-		return modelYearCollection;
+	public List<ModelYear> getModelYearList() {
+		return modelYearList;
 	}
 
-	public void setModelYearCollection(Collection<ModelYear> modelYearCollection) {
-		this.modelYearCollection = modelYearCollection;
+	public void setModelYearList(List<ModelYear> modelYearList) {
+		this.modelYearList = modelYearList;
 	}
 
 	public Make getMakeId() {

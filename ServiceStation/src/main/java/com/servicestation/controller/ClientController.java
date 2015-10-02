@@ -16,7 +16,7 @@ import com.servicestation.service.ClientService;
 
 @Controller
 @RequestMapping("/")
-public class ServiceStationController {
+public class ClientController {
 
 	@Autowired
 	private ClientService clientService;

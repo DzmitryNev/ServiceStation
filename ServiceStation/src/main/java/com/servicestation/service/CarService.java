@@ -14,6 +14,7 @@ import com.servicestation.repository.CarRepository;
 import com.servicestation.repository.ClientRepository;
 import com.servicestation.repository.MakeRepository;
 import com.servicestation.repository.ModelRepository;
+import com.servicestation.repository.ModelYearRepository;
 import com.servicestation.repository.ServiceOrderRepository;
 import com.servicestation.repository.YearRepository;
 
@@ -31,6 +32,8 @@ public class CarService {
 	private ModelRepository modelRepository;
 	@Autowired
 	private YearRepository yearRepository;
+	@Autowired
+	private ModelYearRepository modelYearRepository;
 
 	public Client getClient(Long clientId) {
 		return clientRepository.findOne(clientId);
@@ -41,15 +44,15 @@ public class CarService {
 	}
 
 	public List<Year> findAllYears() {
-		return yearRepository.findAll();
+		return yearRepository.findAllByOrderByYearDesc();
 	}
 
 	public List<Make> findAllMakes() {
-		return makeRepository.findAll();
+		return makeRepository.findAllByOrderByMakeAsc();
 	}
 
 	public List<Model> findAllModels() {
-		return modelRepository.findAll();
+		return modelRepository.findAllByOrderByModelAsc();
 	}
 
 	public boolean delete(Long carId) {
@@ -59,7 +62,25 @@ public class CarService {
 			return true;
 		} else
 			return false;
-		
+
+	}
+
+	public List<Make> findMakesByYear(Long yearId) {
+		return makeRepository.findByYearId(yearId);
+	}
+
+	public List<Model> findModelsByMakeAndYear(Long yearId, Long makeId) {
+		return modelRepository.findByMakeIdAndYearId(makeId, yearId);
+	}
+
+	public void save(Long clientId, Long yearId, Long makeId, Long modelId,String vin) {
+		Year year =yearRepository.findOne(yearId);
+		Model model =modelRepository.findOne(modelId);
+		Car car = new Car();
+		car.setClientId(clientRepository.findOne(clientId));
+		car.setModelYearId(modelYearRepository.findByYearIdAndModelId(year,model));
+		car.setVin(vin);
+		carRepository.save(car);
 	}
 
 }

@@ -11,4 +11,6 @@ public interface ServiceOrderRepository extends JpaRepository<ServiceOrder, Long
 
 	public List<ServiceOrder> findByCarId(Car carId);
 
+	public List<ServiceOrder> findAllByOrderByDateDesc();
+
 }

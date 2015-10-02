@@ -5,7 +5,11 @@
 <head>
 <title>New client</title>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	href="<c:url value="/resources/css/bootstrap.min.css"/>">
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-1.6.1.min.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-ui-1.8.10.custom.min.js"/>"></script>
 
 </head>
 <body>
@@ -21,7 +25,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="/ServiceStation/clients">Clients<span
 								class="sr-only">(current)</span></a></li>
-						<li><a href="#">Orders</a></li>
+						<li><a href="/ServiceStation/orders/all">Orders</a></li>
 					</ul>
 					<form:form method="get" action="/ServiceStation/clients"
 						class="navbar-form navbar-left" role="search">
@@ -41,6 +45,12 @@
 	</div>
 
 	<div class="container">
+	<div>
+			<ul class="breadcrumb">
+				<li><a href="/ServiceStation/clients">Clients</a></li>
+				<li class="active">New Client</li>
+			</ul>
+		</div>
 		<spring:url value="/clients" var="urlClients" />
 		<form:form class="form-horizontal" method="post"
 			modelAttribute="client" action="${urlClients}">
@@ -90,15 +100,8 @@
 					<form:errors path="email" cssclass="error"></form:errors>
 				</div>
 			</spring:bind>
-
-
-			<button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			<button type="submit" class="btn btn-primary">Save</button>
 		</form:form>
 	</div>
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
 </body>
 </html>

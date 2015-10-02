@@ -32,6 +32,11 @@ public class OrderController {
 		model.addAttribute("car", serviceOrderService.getCar(carId));
 		return "orderform";
 	}
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public String showAllOrders(Model model) {
+		model.addAttribute("orders", serviceOrderService.findAll());
+		return "allorders";
+	}
 
 	@RequestMapping(value = "{carId}", method = RequestMethod.POST)
 	public String addOrder(@PathVariable("carId") Long carId,

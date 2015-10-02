@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "car")
-public class Car {
+public class Car implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +37,7 @@ public class Car {
     @ManyToOne(optional = false)
     private ModelYear modelYearId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
-    private Collection<ServiceOrder> serviceOrderCollection;
+    private List<ServiceOrder> serviceOrderList;
 
     public Car() {
     }
@@ -82,12 +83,12 @@ public class Car {
         this.modelYearId = modelYearId;
     }
 
-    public Collection<ServiceOrder> getServiceOrderCollection() {
-        return serviceOrderCollection;
+    public List<ServiceOrder> getServiceOrderList() {
+        return serviceOrderList;
     }
 
-    public void setServiceOrderCollection(Collection<ServiceOrder> serviceOrderCollection) {
-        this.serviceOrderCollection = serviceOrderCollection;
+    public void setServiceOrderList(List<ServiceOrder> serviceOrderList) {
+        this.serviceOrderList = serviceOrderList;
     }
 
     @Override
@@ -99,7 +100,6 @@ public class Car {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Car)) {
             return false;
         }

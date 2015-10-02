@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Make {
+public class Make implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="make_id")
@@ -19,7 +20,7 @@ public class Make {
 	private String make;
 
 	@OneToMany(mappedBy = "makeId")
-	private Collection<Model> modelCollection;
+	private List<Model> modelList;
 
 	public Make() {
 	}
@@ -49,12 +50,12 @@ public class Make {
 		this.make = make;
 	}
 
-	public Collection<Model> getModelCollection() {
-		return modelCollection;
+	public List<Model> getModelList() {
+		return modelList;
 	}
 
-	public void setModelCollection(Collection<Model> modelCollection) {
-		this.modelCollection = modelCollection;
+	public void setModelList(List<Model> modelList) {
+		this.modelList = modelList;
 	}
 
 	@Override

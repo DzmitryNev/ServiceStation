@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,14 +16,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "model_year")
-public class ModelYear {
+public class ModelYear implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "model_year_id")
 	private Long modelYearId;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelYearId")
-	private Collection<Car> carCollection;
+	private List<Car> carList;
 
 	@JoinColumn(name = "model_id", referencedColumnName = "model_id")
 	@ManyToOne(optional = false)
@@ -47,12 +48,12 @@ public class ModelYear {
 		this.modelYearId = modelYearId;
 	}
 
-	public Collection<Car> getCarCollection() {
-		return carCollection;
+	public List<Car> getCarList() {
+		return carList;
 	}
 
-	public void setCarCollection(Collection<Car> carCollection) {
-		this.carCollection = carCollection;
+	public void setCarList(List<Car> carList) {
+		this.carList = carList;
 	}
 
 	public Model getModelId() {

@@ -5,9 +5,11 @@
 <head>
 <title>Client</title>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+	href="<c:url value="/resources/css/bootstrap.min.css"/>">
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-1.6.1.min.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-ui-1.8.10.custom.min.js"/>"></script>
 
 </head>
 <body>
@@ -22,7 +24,7 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="/ServiceStation/clients">Clients</a></li>
-						<li><a href="#">Orders</a></li>
+						<li><a href="/ServiceStation/orders/all">Orders</a></li>
 					</ul>
 					<form:form method="get" action="/ServiceStation/clients"
 						class="navbar-form navbar-left" role="search">
@@ -41,6 +43,12 @@
 		</nav>
 	</div>
 	<div class="container">
+		<div>
+			<ul class="breadcrumb">
+				<li><a href="/ServiceStation/clients">Clients</a></li>
+				<li class="active">Client</li>
+			</ul>
+		</div>
 		<h2>Client</h2>
 		<div class="row">
 			<table class="table table-striped table-hover ">
@@ -69,8 +77,8 @@
 		<h3>Cars</h3>
 		<div>
 			<spring:url value="/cars/${client.clientId}/add" var="urlNewCar" />
-			<button class="btn btn-primary" onclick="location.href='${urlNewCar}'">New
-				car</button>
+			<button class="btn btn-primary"
+				onclick="location.href='${urlNewCar}'">New car</button>
 			<c:if test="${!empty message}">
 				<div class="alert alert-dismissible alert-warning">
 					<button type="button" class="close" data-dismiss="alert">x</button>
@@ -112,7 +120,8 @@
 									<input type="submit" class="btn btn-primary btn-primary"
 										value="Edit" />
 								</form></td>
-							<td><form action="/ServiceStation/cars/${client.clientId}/${car.carId}"
+							<td><form
+									action="/ServiceStation/cars/${client.clientId}/${car.carId}"
 									method="get">
 									<input type="hidden" name="_method" value="delete"> <input
 										type="submit" class="btn btn-danger btn-mini" value="Delete" />
@@ -124,9 +133,6 @@
 			</table>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.util.List;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Client {
+public class Client implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +53,7 @@ public class Client {
 	private String email;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
-	private Collection<Car> carCollection;
+	private List<Car> carList;
 
 	public Client() {
 	}
@@ -128,12 +129,12 @@ public class Client {
 		this.email = email;
 	}
 
-	public Collection<Car> getCarCollection() {
-		return carCollection;
+	public List<Car> getCarList() {
+		return carList;
 	}
 
-	public void setCarCollection(Collection<Car> carCollection) {
-		this.carCollection = carCollection;
+	public void setCarList(List<Car> carList) {
+		this.carList = carList;
 	}
 
 	@Override

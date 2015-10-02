@@ -1,6 +1,7 @@
 package com.servicestation.model;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Year {
+public class Year implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class Year {
 	private int year;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "yearId")
-	private Collection<ModelYear> modelYearCollection;
+	private List<ModelYear> modelYearList;
 
 	public Year() {
 	}
@@ -51,12 +52,12 @@ public class Year {
 		this.year = year;
 	}
 
-	public Collection<ModelYear> getModelYearCollection() {
-		return modelYearCollection;
+	public List<ModelYear> getModelYearList() {
+		return modelYearList;
 	}
 
-	public void setModelYearCollection(Collection<ModelYear> modelYearCollection) {
-		this.modelYearCollection = modelYearCollection;
+	public void setModelYearList(List<ModelYear> modelYearList) {
+		this.modelYearList = modelYearList;
 	}
 
 	@Override

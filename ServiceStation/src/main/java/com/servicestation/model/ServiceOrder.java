@@ -1,5 +1,6 @@
 package com.servicestation.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "service_order")
-public class ServiceOrder{
+public class ServiceOrder implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +33,7 @@ public class ServiceOrder{
 	@NotNull
     @Temporal(TemporalType.DATE)
     private Date date;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?)  @Min(value=?)
     @Basic(optional = false)
     @Column(name = "order_amount")
     private BigDecimal orderAmount;
@@ -106,7 +107,6 @@ public class ServiceOrder{
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ServiceOrder)) {
             return false;
         }
