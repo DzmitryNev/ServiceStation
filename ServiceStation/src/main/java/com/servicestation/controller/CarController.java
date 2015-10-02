@@ -28,7 +28,7 @@ public class CarController {
 	}
 
 	@RequestMapping(value = "{clientId}/add", method = RequestMethod.GET)
-	public String constructCar(@PathVariable("clientId") Long clientId, Model model) {
+	public String showCarAddForm(@PathVariable("clientId") Long clientId, Model model) {
 		model.addAttribute("client", carService.getClient(clientId));
 		return "carform";
 	}
@@ -51,6 +51,7 @@ public class CarController {
 		return "redirect:/cars/{clientId}";
 	}
 
+	
 	@RequestMapping(value = "{clientId}/makes", method = RequestMethod.GET)
 	public @ResponseBody String findMakesByYear(@PathVariable("clientId") Long clientId,
 			@RequestParam(name = "year", required = true) Long yearId) {
@@ -76,6 +77,7 @@ public class CarController {
 		return yearArray.toString();
 	}
 
+
 	@RequestMapping(value = "{clientId}/models", method = RequestMethod.GET)
 	public @ResponseBody String findModelByMakeAndYear(@PathVariable("clientId") Long clientId,
 			@RequestParam(name = "year", required = true) Long yearId,
@@ -89,5 +91,24 @@ public class CarController {
 		}
 		return modelArray.toString();
 	}
+	
+	@RequestMapping(value = "{clientId}/{carId}/update", method=RequestMethod.GET)
+	public String showCarUpdateForm(@PathVariable("clientId") Long clientId, 
+			@PathVariable("carId") Long carId, Model model) {
+		model.addAttribute("car", carService.getCar(carId));
+		model.addAttribute("client", carService.getClient(clientId));
+		return "carupdate";
+	}
 
+	@RequestMapping(value = "{clientId}/{carId}", method = RequestMethod.POST)
+	public String updateCar(@PathVariable("clientId") Long clientId,
+			@PathVariable("carId") Long carId,
+			@RequestParam(value = "yearId") Long yearId,
+			@RequestParam(value = "makeId") Long makeId,
+			@RequestParam(value = "modelId") Long modelId, 
+			@RequestParam(value = "vin") String vin, Model model) {
+		carService.update(carId, yearId, makeId, modelId,vin);
+		model.addAttribute("clientId", clientId);
+		return "redirect:/cars/{clientId}";
+	}
 }

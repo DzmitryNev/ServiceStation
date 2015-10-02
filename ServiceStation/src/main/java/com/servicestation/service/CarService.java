@@ -83,4 +83,18 @@ public class CarService {
 		carRepository.save(car);
 	}
 
+	public Car getCar(Long carId) {
+		return carRepository.findOne(carId);
+	}
+
+	public void update(Long carId, Long yearId, Long makeId, Long modelId, String vin) {
+		Year year =yearRepository.findOne(yearId);
+		Model model =modelRepository.findOne(modelId);
+		Car car = carRepository.findOne(carId);
+		car.setModelYearId(modelYearRepository.findByYearIdAndModelId(year,model));
+		car.setVin(vin);
+		carRepository.save(car);
+		
+	}
+
 }

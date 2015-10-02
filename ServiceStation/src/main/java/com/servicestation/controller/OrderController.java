@@ -28,7 +28,7 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "{carId}/add", method = RequestMethod.GET)
-	public String constructOrder(@PathVariable("carId") Long carId, Model model) {
+	public String showOrderAddForm(@PathVariable("carId") Long carId, Model model) {
 		model.addAttribute("car", serviceOrderService.getCar(carId));
 		return "orderform";
 	}
@@ -49,7 +49,8 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "{carId}/{serviceOrderId}/delete")
-	public String deleteOrder(@PathVariable("carId") Long carId, @PathVariable("serviceOrderId") Long serviceOrderId,
+	public String deleteOrder(@PathVariable("carId") Long carId,
+			@PathVariable("serviceOrderId") Long serviceOrderId,
 			Model model) {
 
 		serviceOrderService.delete(serviceOrderId);
@@ -58,7 +59,7 @@ public class OrderController {
 
 	}
 	@RequestMapping(value = "{carId}/{serviceOrderId}/update", method = RequestMethod.GET)
-	public String showFormUpdateOrder(@PathVariable("carId") Long carId,
+	public String showOrderUpdateForm(@PathVariable("carId") Long carId,
 			@PathVariable("serviceOrderId")  Long serviceOrderId, Model model) {
 		model.addAttribute("car", serviceOrderService.getCar(carId));
 		model.addAttribute("order",serviceOrderService.getServiceOrder(serviceOrderId));

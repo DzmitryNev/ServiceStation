@@ -19,7 +19,7 @@
 			<ul class="breadcrumb">
 				<li><a href="/ServiceStation/clients">Clients</a></li>
 				<li><a href="/ServiceStation/cars/${car.clientId.clientId}">Client</a></li>
-				<li class="active">Order</li>
+				<li class="active">Edit Order</li>
 			</ul>
 		</div>
 		<form class="form-horizontal" method="post" action="/ServiceStation/orders/${car.carId}/${order.serviceOrderId}">

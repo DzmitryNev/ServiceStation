@@ -19,6 +19,7 @@
 			<ul class="breadcrumb">
 				<li><a href="/ServiceStation/clients">Clients</a></li>
 				<li><a href="/ServiceStation/cars/${car.clientId.clientId}">Client</a></li>
+				<li><a href="/ServiceStation/orders/${car.carId}">Orders</a></li>
 				<li class="active">New order</li>
 			</ul>
 		</div>
@@ -39,6 +40,7 @@
 			<div class="form-group">
 				<label class="control-label" for="date">Date:</label> <input
 					id="date" class="form-control" name="date" class="form-control" />
+					
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="orderAmount">Order Amount:</label>

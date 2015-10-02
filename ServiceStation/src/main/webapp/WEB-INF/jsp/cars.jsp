@@ -86,8 +86,8 @@
 									<input type="submit" class="btn btn-info btn-mini"
 										value="View orders" />
 								</form></td>
-							<td><form action="/ServiceStation/cars/${car.carId}/update"
-									method="post">
+							<td><form action="/ServiceStation/cars/${client.clientId}/${car.carId}/update"
+									method="get">
 									<input type="submit" class="btn btn-primary btn-primary"
 										value="Edit" />
 								</form></td>

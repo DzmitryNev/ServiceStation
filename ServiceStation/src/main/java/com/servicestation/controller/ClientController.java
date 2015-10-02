@@ -22,7 +22,7 @@ public class ClientController {
 	private ClientService clientService;
 
 	@RequestMapping(value = "clients/add", method = RequestMethod.GET)
-	public String constructClient(Model model) {
+	public String showClientAddForm(Model model) {
 		model.addAttribute("client", new Client());
 		return "clientform";
 	}
@@ -38,13 +38,13 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = {"/","clients"}, method = RequestMethod.GET)
-	public String getClients(Model model) {
+	public String getAllClients(Model model) {
 		model.addAttribute("clients", clientService.findAll());
 		return "clients";
 	}
 
 	@RequestMapping(value = "clients", params = { "firstName", "lastName" }, method = RequestMethod.GET)
-	public String showClients(@RequestParam String firstName, @RequestParam String lastName, Model model) {
+	public String findByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName, Model model) {
 		if (!firstName.isEmpty() && !lastName.isEmpty())
 			model.addAttribute("clients", clientService.findClient(firstName, lastName));
 		else
