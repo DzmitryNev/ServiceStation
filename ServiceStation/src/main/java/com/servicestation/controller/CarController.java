@@ -44,7 +44,7 @@ public class CarController {
 		return "redirect:/cars/{clientId}";
 	}
 
-	@RequestMapping(value = "{clientId}/{carId}", params = "_method=delete")
+	@RequestMapping(value = "{clientId}/{carId}/delete")
 	public String deleteCar(@PathVariable("clientId") Long clientId, @PathVariable("carId") Long carId, Model model) {
 		carService.delete(carId);
 		model.addAttribute("clientId", clientId);

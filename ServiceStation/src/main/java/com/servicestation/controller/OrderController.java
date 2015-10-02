@@ -48,7 +48,7 @@ public class OrderController {
 		return "redirect:/orders/{carId}";
 	}
 
-	@RequestMapping(value = "{carId}/{serviceOrderId}", params = "_method=delete")
+	@RequestMapping(value = "{carId}/{serviceOrderId}/delete")
 	public String deleteOrder(@PathVariable("carId") Long carId, @PathVariable("serviceOrderId") Long serviceOrderId,
 			Model model) {
 
@@ -57,5 +57,20 @@ public class OrderController {
 		return "redirect:/orders/{carId}";
 
 	}
+	@RequestMapping(value = "{carId}/{serviceOrderId}/update", method = RequestMethod.GET)
+	public String showFormUpdateOrder(@PathVariable("carId") Long carId,
+			@PathVariable("serviceOrderId")  Long serviceOrderId, Model model) {
+		model.addAttribute("car", serviceOrderService.getCar(carId));
+		model.addAttribute("order",serviceOrderService.getServiceOrder(serviceOrderId));
+		return "orderupdate";
+	}
+	@RequestMapping(value = "{carId}/{serviceOrderId}", method = RequestMethod.POST)
+	public String updateOrder(@PathVariable("carId") Long carId,
+			@PathVariable("serviceOrderId") Long serviceOrderId,
+			@RequestParam(value = "orderStatus") String orderStatus) {
+		serviceOrderService.updateStatus(serviceOrderId, orderStatus);
+		return "redirect:/orders/{carId}";
+	}
+
 
 }

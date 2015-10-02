@@ -45,4 +45,14 @@ public class ServiceOrderService {
 		return orderRepository.findAllByOrderByDateDesc();
 	}
 
+	public ServiceOrder getServiceOrder(Long serviceOrderId) {
+		return orderRepository.findOne(serviceOrderId);
+	}
+
+	public void updateStatus(Long serviceOrderId, String orderStatus) {
+		ServiceOrder order = orderRepository.findOne(serviceOrderId);
+		order.setOrderStatus(orderStatus);
+		orderRepository.save(order);
+	}
+
 }
