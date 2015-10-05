@@ -13,7 +13,7 @@
 
 </head>
 <body>
-	<jsp:include page="header.jsp"/>
+	<jsp:include page="header.jsp" />
 	<div class="container">
 		<div>
 			<ul class="breadcrumb">
@@ -23,42 +23,40 @@
 				<li class="active">New order</li>
 			</ul>
 		</div>
-		<form class="form-horizontal" method="post"
-			action="/ServiceStation/orders/${car.carId}">
+	
+		<form:form class="form-horizontal" method="post"
+			modelAttribute="order" action="/ServiceStation/orders/${car.carId}">
 
 			<div class="form-group">
-				<label class="control-label" for="client">Client</label> 
-				<input class="form-control" id="client"
-					placeholder="${car.clientId.firstName}  ${car.clientId.lastName}" disabled="" type="text">
+				<label class="control-label" for="client">Client</label> <input
+					class="form-control" id="client"
+					placeholder="${car.clientId.firstName}  ${car.clientId.lastName}"
+					disabled="" type="text">
 			</div>
 			<div class="form-group">
-				<label class="control-label" for="car">Car</label> 
-				<input class="form-control" id="car"
-					placeholder="${car.modelYearId.yearId.year}  ${car.modelYearId.modelId.makeId.make}   ${car.modelYearId.modelId.model}" disabled="" type="text">
+				<label class="control-label" for="car">Car</label> <input
+					class="form-control" id="car"
+					placeholder="${car.modelYearId.yearId.year}  ${car.modelYearId.modelId.makeId.make}   ${car.modelYearId.modelId.model}"
+					disabled="" type="text">
 			</div>
 
-			<div class="form-group">
-				<label class="control-label" for="date">Date:</label> <input
-					id="date" class="form-control" name="date" class="form-control" />
-					
+			<div class="form-group ${status.error ? 'has-error' : ''}">
+				<form:label path="date">Date:</form:label>
+				<form:input path="date" class="form-control"
+					placeholder="yyyy-MM-dd" />
+				<form:errors path="date" cssclass="error"></form:errors>
 			</div>
-			<div class="form-group">
-				<label class="control-label" for="orderAmount">Order Amount:</label>
-				<input id="orderAmount" class="form-control" name="orderAmount"
-					class="form-control" />
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="sel">Order Status:</label> <select
-					class="form-control" id="sel" name="orderStatus">
-					<option value="In Progress">In Progress</option>
-					<option value="Completed">Completed</option>
-					<option value="Canceled">Canceled</option>
-				</select>
+
+
+			<div class="form-group ${status.error ? 'has-error' : ''}">
+				<form:label path="orderAmount">Order Amount:</form:label>
+				<form:input path="orderAmount" class="form-control"
+					placeholder="0-10000" />
+				<form:errors path="orderAmount" cssclass="error"></form:errors>
 			</div>
 			<button type="submit" class="btn btn-primary">Save</button>
-		</form>
-
+		</form:form>
 	</div>
-	
+
 </body>
 </html>

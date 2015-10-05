@@ -1,7 +1,5 @@
 package com.servicestation.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +26,6 @@ public class ServiceOrderService {
 		return carRepository.findOne(carId);
 	}
 
-	public void save(Long carId, Date date, BigDecimal orderAmount, String orderStatus) {
-		ServiceOrder order = new ServiceOrder();
-		order.setCarId(getCar(carId));
-		order.setDate(date);
-		order.setOrderAmount(orderAmount);
-		order.setOrderStatus(orderStatus);
-		orderRepository.save(order);
-	}
-
 	public void delete(Long serviceOrderId) {
 		orderRepository.delete(serviceOrderId);
 	}
@@ -53,6 +42,12 @@ public class ServiceOrderService {
 		ServiceOrder order = orderRepository.findOne(serviceOrderId);
 		order.setOrderStatus(orderStatus);
 		orderRepository.save(order);
+	}
+
+	public void save(ServiceOrder order, Long carId) {
+		order.setCarId(carRepository.findOne(carId));
+		order.setOrderStatus("In Progress");
+		orderRepository.save(order);		
 	}
 
 }

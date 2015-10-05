@@ -15,9 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 @Entity
 @Table(name = "service_order")
@@ -33,7 +37,9 @@ public class ServiceOrder implements Serializable{
 	@NotNull
     @Temporal(TemporalType.DATE)
     private Date date;
-    // @Max(value=?)  @Min(value=?)
+    
+    @NotNull
+    @Max(10000)  @Min(0)
     @Basic(optional = false)
     @Column(name = "order_amount")
     private BigDecimal orderAmount;

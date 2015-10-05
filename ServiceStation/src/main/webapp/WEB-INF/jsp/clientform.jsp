@@ -69,7 +69,7 @@
 					<form:input path="email" class="form-control" placeholder="Email" />
 					<form:errors path="email" cssclass="error"></form:errors>
 				</div>
-			</spring:bind>
+			</spring:bind> 
 			<button type="submit" class="btn btn-primary">Save</button>
 		</form:form>
 	</div>
